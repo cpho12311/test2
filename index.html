@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>小記帳</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Personal Ledger</p>
+          <h1>小記帳</h1>
+          <p class="subhead">用最少步驟記錄每日收入與支出，月結、分類與明細都在同一頁。</p>
+        </div>
+        <div class="hero-actions">
+          <button class="ghost-button" id="exportCsv" type="button">匯出 CSV</button>
+          <button class="danger-button" id="clearAll" type="button">清空資料</button>
+        </div>
+      </section>
+
+      <section class="summary-grid" aria-label="本月摘要">
+        <article class="summary-card income">
+          <span>收入</span>
+          <strong id="incomeTotal">$0</strong>
+        </article>
+        <article class="summary-card expense">
+          <span>支出</span>
+          <strong id="expenseTotal">$0</strong>
+        </article>
+        <article class="summary-card balance">
+          <span>結餘</span>
+          <strong id="balanceTotal">$0</strong>
+        </article>
+      </section>
+
+      <section class="workspace">
+        <form class="entry-panel" id="entryForm">
+          <div class="panel-heading">
+            <h2>新增紀錄</h2>
+            <label>
+              檢視月份
+              <input id="monthFilter" type="month" />
+            </label>
+          </div>
+
+          <div class="type-toggle" role="group" aria-label="紀錄類型">
+            <input id="typeExpense" name="type" type="radio" value="expense" checked />
+            <label for="typeExpense">支出</label>
+            <input id="typeIncome" name="type" type="radio" value="income" />
+            <label for="typeIncome">收入</label>
+          </div>
+
+          <label>
+            日期
+            <input id="dateInput" type="date" required />
+          </label>
+
+          <label>
+            金額
+            <input id="amountInput" min="1" step="1" type="number" placeholder="例如 120" required />
+          </label>
+
+          <label>
+            分類
+            <select id="categoryInput" required></select>
+          </label>
+
+          <label>
+            備註
+            <input id="noteInput" maxlength="40" type="text" placeholder="例如 午餐、薪水、交通" />
+          </label>
+
+          <button class="primary-button" type="submit">加入紀錄</button>
+        </form>
+
+        <section class="ledger-panel">
+          <div class="panel-heading">
+            <h2>收支明細</h2>
+            <p id="recordCount">0 筆</p>
+          </div>
+
+          <div class="category-bars" id="categoryBars" aria-label="分類支出統計"></div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>日期</th>
+                  <th>類型</th>
+                  <th>分類</th>
+                  <th>備註</th>
+                  <th class="amount-col">金額</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="recordsBody"></tbody>
+            </table>
+            <p class="empty-state" id="emptyState">這個月份還沒有資料，先新增一筆紀錄吧。</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
